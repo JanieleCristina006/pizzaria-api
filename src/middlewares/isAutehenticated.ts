@@ -5,7 +5,6 @@ interface PayLoad{
     sub: string;
 }
 
-
 export function isAuthenticated(req:Request,res:Response,next:NextFunction){
     const authToken = req.headers.authorization
 
