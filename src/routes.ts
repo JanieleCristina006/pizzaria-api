@@ -1,4 +1,7 @@
-import { Router,Request,Response } from "express";
+import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "./config/multer";
+
 import { CreateUserController } from "./controllers/user/createUserController";
 import { validateSchema } from "./middlewares/validateShema";
 import { authUserSchema, createUserSchema } from "./schemas/userSchema";
@@ -9,10 +12,12 @@ import { CreateCategoryController } from "./controllers/category/Createcategory"
 import { isAdmin } from "./middlewares/isAdmin";
 import { createCategorySchema } from "./schemas/categorySchema";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
+import { CreateProductController } from "./controllers/product/CreateProductController";
 
 const router = Router();
+const upload = multer(uploadConfig)
 
-// Rotas users
+// Rotas usuarios
 router.post("/users",validateSchema(createUserSchema),new CreateUserController().handle)
 router.post("/session",validateSchema(authUserSchema),new AuthUserController().handle)
 router.get("/me",isAuthenticated,new DetailUserController().handle)
@@ -21,5 +26,8 @@ router.get("/me",isAuthenticated,new DetailUserController().handle)
 router.post("/category",isAuthenticated,isAdmin,validateSchema(createCategorySchema),new CreateCategoryController().handle)
 router.get("/category",isAuthenticated,new ListCategoryController().handle)
 
+
+// Rotas produtos
+router.post("/product",isAuthenticated,isAdmin,upload.single("file"),new CreateProductController().handle)
 
 export { router }
