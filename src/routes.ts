@@ -13,6 +13,7 @@ import { isAdmin } from "./middlewares/isAdmin";
 import { createCategorySchema } from "./schemas/categorySchema";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
+import { createProductSchema } from "./schemas/productSchema";
 
 const router = Router();
 const upload = multer(uploadConfig)
@@ -28,6 +29,12 @@ router.get("/category",isAuthenticated,new ListCategoryController().handle)
 
 
 // Rotas produtos
-router.post("/product",isAuthenticated,isAdmin,upload.single("file"),new CreateProductController().handle)
+router.post("/product",
+    isAuthenticated,
+    isAdmin,
+    upload.single("file"),
+    validateSchema(createProductSchema),
+    new CreateProductController().handle
+)
 
 export { router }
