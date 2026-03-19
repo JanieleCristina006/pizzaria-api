@@ -18,7 +18,7 @@ import { ListProductController } from "./controllers/product/ListProductControll
 import { DeleteProductController } from "./controllers/product/DeleteProductController";
 import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
 import { ListOrdersController } from "./controllers/order/ListOrdersController";
-import { addItemOrderSchema, createOrderSchema } from "./schemas/orderSchema";
+import { addItemSchema, createOrderSchema, removeItemSchema } from "./schemas/orderSchema";
 import { CreateOrderController } from "./controllers/order/CreateOrderController";
 import { AddItemController } from "./controllers/order/AddItemontroller";
 
@@ -72,6 +72,8 @@ router.get("/orders",isAuthenticated,new ListOrdersController().handle)
 router.post("/order",isAuthenticated,validateSchema(createOrderSchema),new CreateOrderController().handle)
 
 //Adicionar item na ordem
-router.post("/order/add",isAuthenticated,validateSchema(addItemOrderSchema),new AddItemController().handle)
+router.post("/order/add",isAuthenticated,validateSchema(addItemSchema),new AddItemController().handle)
+
+router.delete("/order/remove",isAuthenticated,validateSchema(removeItemSchema),new DeleteProductController().handle)
 
 export { router }
