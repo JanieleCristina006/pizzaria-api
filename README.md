@@ -1254,6 +1254,6 @@ npm run dev
 
 ---
 
-**Documento atualizado em**: 11/11/2025  
+**Documento atualizado em**: 21/03/2026 
 **Versão do Projeto**: 1.2.0  
 **Última atualização**: Adicionada rota GET /products com filtro por status (disabled)

@@ -18,13 +18,14 @@ import { ListProductController } from "./controllers/product/ListProductControll
 import { DeleteProductController } from "./controllers/product/DeleteProductController";
 import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
 import { ListOrdersController } from "./controllers/order/ListOrdersController";
-import { addItemSchema, createOrderSchema, detailOrderSchema, finishOrderSchema, removeItemSchema } from "./schemas/orderSchema";
+import { addItemSchema, createOrderSchema, deleteOrderSchema, detailOrderSchema, finishOrderSchema, removeItemSchema } from "./schemas/orderSchema";
 import { CreateOrderController } from "./controllers/order/CreateOrderController";
 import { AddItemController } from "./controllers/order/AddItemontroller";
 import { RemoveItemController } from "./controllers/order/RemoveItemController";
 import { DetailOrderController } from "./controllers/order/DetailOrderController";
 import { SendOrderController } from "./controllers/order/SendOrderController";
 import { FinishOrderController } from "./controllers/order/FinishOrderController";
+import { DeleteOrderController } from "./controllers/order/DeleteOrderController";
 
 
 const router = Router();
@@ -92,5 +93,8 @@ router.put("/order/send",isAuthenticated,validateSchema(sendOrderSchema),new Sen
 
 //Finalizar order
 router.put("/order/finish",isAuthenticated,validateSchema(finishOrderSchema),new FinishOrderController().handle)
+
+// Deletar order
+router.delete("/order",isAuthenticated,validateSchema(deleteOrderSchema),new DeleteOrderController().handle)  
 
 export { router }
