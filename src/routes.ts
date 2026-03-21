@@ -13,14 +13,18 @@ import { isAdmin } from "./middlewares/isAdmin";
 import { createCategorySchema } from "./schemas/categorySchema";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
-import { createProductSchema, listProductByCategorySchema, listProductSchema } from "./schemas/productSchema";
+import { createProductSchema, listProductByCategorySchema, listProductSchema, sendOrderSchema } from "./schemas/productSchema";
 import { ListProductController } from "./controllers/product/ListProductController";
 import { DeleteProductController } from "./controllers/product/DeleteProductController";
 import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
 import { ListOrdersController } from "./controllers/order/ListOrdersController";
-import { addItemSchema, createOrderSchema, removeItemSchema } from "./schemas/orderSchema";
+import { addItemSchema, createOrderSchema, detailOrderSchema, finishOrderSchema, removeItemSchema } from "./schemas/orderSchema";
 import { CreateOrderController } from "./controllers/order/CreateOrderController";
 import { AddItemController } from "./controllers/order/AddItemontroller";
+import { RemoveItemController } from "./controllers/order/RemoveItemController";
+import { DetailOrderController } from "./controllers/order/DetailOrderController";
+import { SendOrderController } from "./controllers/order/SendOrderController";
+import { FinishOrderController } from "./controllers/order/FinishOrderController";
 
 
 const router = Router();
@@ -45,6 +49,7 @@ router.post("/product",
     new CreateProductController().handle
 )
 
+//Listar produtos
 router.get(
     "/products",
     isAuthenticated,
@@ -52,6 +57,7 @@ router.get(
     new ListProductController().handle
 )
 
+//Deletar produto
 router.delete(
     "/product",
     isAuthenticated,
@@ -59,6 +65,7 @@ router.delete(
     new DeleteProductController().handle
 )
 
+//Listar produtos por categoria
 router.get(
     "/category/product",
     isAuthenticated,
@@ -74,6 +81,16 @@ router.post("/order",isAuthenticated,validateSchema(createOrderSchema),new Creat
 //Adicionar item na ordem
 router.post("/order/add",isAuthenticated,validateSchema(addItemSchema),new AddItemController().handle)
 
-router.delete("/order/remove",isAuthenticated,validateSchema(removeItemSchema),new DeleteProductController().handle)
+//Remover item da ordem
+router.delete("/order/remove",isAuthenticated,validateSchema(removeItemSchema),new RemoveItemController().handle)
+
+//Buscar detalhes da order
+router.get("/order/detail",isAuthenticated,validateSchema(detailOrderSchema),new DetailOrderController().handle)
+
+//Enviar order
+router.put("/order/send",isAuthenticated,validateSchema(sendOrderSchema),new SendOrderController().handle)
+
+//Finalizar order
+router.put("/order/finish",isAuthenticated,validateSchema(finishOrderSchema),new FinishOrderController().handle)
 
 export { router }
