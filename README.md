@@ -1,4 +1,4 @@
-# 📋 Documentação de Contexto do Projeto - Sistema de Pizzaria
+# Sistema de Pizzaria
 
 ## 📖 Índice
 
