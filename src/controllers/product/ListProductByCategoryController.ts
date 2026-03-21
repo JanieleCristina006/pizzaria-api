@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListProductByCategoryService } from "../../service/product/ListProductByCategoryService";
+import { ListProductByCategoryService } from "../../services/product/ListProductByCategoryService";
 
 class ListProductByCategoryController {
   async handle(req: Request, res: Response) {
